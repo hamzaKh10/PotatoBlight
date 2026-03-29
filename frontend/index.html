@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BATATA BLIGHT - Suivi et Comptage</title>
+  <link rel="icon" type="image/png" href="assets/vecteezy_single-russet-potato-on-white-background_58271985.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Decorative layers removed (forest/leaves/potatoes) -->
+
+  <main class="app">
+    <div class="app-bar">
+      <div class="api-pill api-unknown" id="apiPill" title="Etat du systeme">
+        <span class="api-dot" aria-hidden="true"></span>
+        <span id="apiText">Systeme: verification...</span>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="title-row">
+        <h1>BATATA BLIGHT</h1>
+        <img class="title-icon" src="assets/vecteezy_single-russet-potato-on-white-background_58271985.png" alt="" aria-hidden="true" />
+      </div>
+      <p class="subtitle">Importez une image ou une video et obtenez le comptage, le suivi, et le niveau de risque mildiou.</p>
+    </header>
+
+    <section class="card steps-card" aria-label="Guide rapide">
+      <div class="steps">
+        <div class="step">
+          <div class="step-icon" aria-hidden="true">1</div>
+          <div>
+            <p class="step-title">Importer</p>
+            <p class="step-text">Choisissez une image ou une video.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-icon" aria-hidden="true">2</div>
+          <div>
+            <p class="step-title">Generer</p>
+            <p class="step-text">Cliquez sur "Generer le resultat".</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-icon" aria-hidden="true">3</div>
+          <div>
+            <p class="step-title">Telecharger</p>
+            <p class="step-text">Recuperez le resultat annote.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="media-grid">
+      <section class="card upload-card" id="imageCard">
+        <h2>1) Import de l'image</h2>
+        <p class="hint">Formats acceptes: JPG, PNG, WEBP.</p>
+
+        <label class="upload-zone" for="imageInput" id="imageUploadZone">
+          <input id="imageInput" type="file" accept="image/*" />
+          <span id="imageUploadText">Cliquez ou glissez une image ici</span>
+        </label>
+
+        <input id="cameraInput" class="hidden-input" type="file" accept="image/*" capture="environment" />
+        <button id="takePhotoBtn" class="btn btn-secondary" type="button">Prendre une photo</button>
+
+        <div class="preview-wrap hidden" id="imagePreviewWrap">
+          <img id="imagePreview" alt="Apercu image" />
+        </div>
+
+        <button id="analyzeImageBtn" class="btn" disabled>2) Generer le resultat (image)</button>
+      </section>
+
+      <section class="card upload-card" id="videoCard">
+        <h2>1) Import de la video</h2>
+        <p class="hint">Formats acceptes: MP4, MOV, AVI.</p>
+
+        <label class="upload-zone" for="videoInput" id="videoUploadZone">
+          <input id="videoInput" type="file" accept="video/*" />
+          <span id="videoUploadText">Cliquez ou glissez une video ici</span>
+        </label>
+
+        <div class="preview-wrap hidden" id="videoPreviewWrap">
+          <video id="videoPreview" controls></video>
+        </div>
+
+        <button id="analyzeVideoBtn" class="btn" disabled>2) Generer le resultat (video)</button>
+      </section>
+    </div>
+
+    <section class="card result-card" id="resultCard">
+      <h2>Resultat</h2>
+      <div class="result-grid">
+        <div>
+          <p class="label">Risque Mildiou</p>
+          <p class="grade" id="riskValue">--</p>
+        </div>
+        <div>
+          <p class="label">Score Sante</p>
+          <p class="score" id="healthScoreValue">-- / 100</p>
+        </div>
+        <div>
+          <p class="label">Plants Detectes</p>
+          <p class="score" id="countValue">--</p>
+        </div>
+        <div>
+          <p class="label">Confiance de Suivi</p>
+          <p class="score" id="trackValue">--</p>
+        </div>
+      </div>
+      <div class="result-grid">
+        <div>
+          <p class="label" title="Stade précoce (early)">Early (stade precoce)</p>
+          <p class="score" id="sickEarlyValue">--</p>
+        </div>
+        <div>
+          <p class="label" title="Stade avancé (late)">Late (stade avance)</p>
+          <p class="score" id="sickLateValue">--</p>
+        </div>
+      </div>
+      <p class="feedback" id="feedbackText">Importez une image ou une video puis cliquez sur "Generer le resultat".</p>
+      <div class="download-row hidden" id="downloadRow">
+        <p class="hint download-hint">Resultat annote</p>
+        <a id="downloadLink" class="btn btn-secondary" href="#" download>Télécharger le résultat annoté</a>
+      </div>
+      <div class="result-actions">
+        <button id="resetAllBtn" class="btn btn-ghost" disabled>Effacer</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
