@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,15 +9,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <!-- Confetti Library for Wow Effect -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <!-- Decorative layers removed (forest/leaves/potatoes) -->
-
   <main class="app">
     <div class="app-bar">
+      <!-- Language Selector -->
+      <div class="lang-selector" title="Change Language">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+        <select id="langSelect" aria-label="Change Language">
+          <option value="fr">FR / Français</option>
+          <option value="en">EN / English</option>
+          <option value="ar">AR / العربية</option>
+        </select>
+      </div>
+
       <div class="api-pill api-unknown" id="apiPill" title="Etat du systeme">
         <span class="api-dot" aria-hidden="true"></span>
-        <span id="apiText">Systeme: verification...</span>
+        <span id="apiText" data-i18n="sys_verifying">Systeme: verification...</span>
       </div>
     </div>
 
@@ -26,7 +36,7 @@
         <h1>BATATA BLIGHT</h1>
         <img class="title-icon" src="assets/vecteezy_single-russet-potato-on-white-background_58271985.png" alt="" aria-hidden="true" />
       </div>
-      <p class="subtitle">Importez une image ou une video et obtenez le comptage, le suivi, et le niveau de risque mildiou.</p>
+      <p class="subtitle" data-i18n="hero_subtitle">Importez une image ou une video et obtenez le comptage, le suivi, et le niveau de risque mildiou.</p>
     </header>
 
     <section class="card steps-card" aria-label="Guide rapide">
@@ -34,107 +44,147 @@
         <div class="step">
           <div class="step-icon" aria-hidden="true">1</div>
           <div>
-            <p class="step-title">Importer</p>
-            <p class="step-text">Choisissez une image ou une video.</p>
+            <p class="step-title" data-i18n="step1_title">Importer</p>
+            <p class="step-text" data-i18n="step1_desc">Choisissez une image ou une video.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-icon" aria-hidden="true">2</div>
           <div>
-            <p class="step-title">Generer</p>
-            <p class="step-text">Cliquez sur "Generer le resultat".</p>
+            <p class="step-title" data-i18n="step2_title">Generer</p>
+            <p class="step-text" data-i18n="step2_desc">Cliquez sur "Generer le resultat".</p>
           </div>
         </div>
         <div class="step">
           <div class="step-icon" aria-hidden="true">3</div>
           <div>
-            <p class="step-title">Telecharger</p>
-            <p class="step-text">Recuperez le resultat annote.</p>
+            <p class="step-title" data-i18n="step3_title">Observer</p>
+            <p class="step-text" data-i18n="step3_desc">L'IA analyse vos plants.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="media-grid">
-      <section class="card upload-card" id="imageCard">
-        <h2>1) Import de l'image</h2>
-        <p class="hint">Formats acceptes: JPG, PNG, WEBP.</p>
-
-        <label class="upload-zone" for="imageInput" id="imageUploadZone">
-          <input id="imageInput" type="file" accept="image/*" />
-          <span id="imageUploadText">Cliquez ou glissez une image ici</span>
-        </label>
-
-        <input id="cameraInput" class="hidden-input" type="file" accept="image/*" capture="environment" />
-        <button id="takePhotoBtn" class="btn btn-secondary" type="button">Prendre une photo</button>
-
-        <div class="preview-wrap hidden" id="imagePreviewWrap">
-          <img id="imagePreview" alt="Apercu image" />
+    <!-- Upload section -->
+    <section class="card upload-card">
+      <div class="media-grid">
+        <!-- Video Upload -->
+        <div class="upload-section">
+          <input type="file" id="videoInput" class="hidden-input" accept="video/*" />
+          <div class="upload-zone" id="videoUploadZone" tabindex="0" role="button">
+            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="23 7 16 12 23 17 23 7" />
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+            </svg>
+            <p><span data-i18n="vid_drop">Glissez votre video ici ou</span> <button class="btn-text" id="browseVideoBtn" data-i18n="btn_browse">Parcourir</button></p>
+            <p class="upload-text" id="videoUploadText" data-i18n="vid_idle">Aucun fichier video choisi</p>
+          </div>
+          <div class="preview-wrap hidden" id="videoPreviewWrap">
+            <video id="videoPreview" controls muted></video>
+          </div>
+          <button id="analyzeVideoBtn" class="btn btn-primary" disabled data-i18n="btn_analyze_vid">2) Generer le resultat (video)</button>
         </div>
 
-        <button id="analyzeImageBtn" class="btn" disabled>2) Generer le resultat (image)</button>
-      </section>
-
-      <section class="card upload-card" id="videoCard">
-        <h2>1) Import de la video</h2>
-        <p class="hint">Formats acceptes: MP4, MOV, AVI.</p>
-
-        <label class="upload-zone" for="videoInput" id="videoUploadZone">
-          <input id="videoInput" type="file" accept="video/*" />
-          <span id="videoUploadText">Cliquez ou glissez une video ici</span>
-        </label>
-
-        <div class="preview-wrap hidden" id="videoPreviewWrap">
-          <video id="videoPreview" controls></video>
-        </div>
-
-        <button id="analyzeVideoBtn" class="btn" disabled>2) Generer le resultat (video)</button>
-      </section>
-    </div>
-
-    <section class="card result-card" id="resultCard">
-      <h2>Resultat</h2>
-      <div class="result-grid">
-        <div>
-          <p class="label">Risque Mildiou</p>
-          <p class="grade" id="riskValue">--</p>
-        </div>
-        <div>
-          <p class="label">Score Sante</p>
-          <p class="score" id="healthScoreValue">-- / 100</p>
-        </div>
-        <div>
-          <p class="label">Plants Detectes</p>
-          <p class="score" id="countValue">--</p>
-        </div>
-        <div>
-          <p class="label">Confiance de Suivi</p>
-          <p class="score" id="trackValue">--</p>
+        <!-- Image Upload -->
+        <div class="upload-section">
+          <input type="file" id="imageInput" class="hidden-input" accept="image/*" />
+          <div class="upload-zone" id="imageUploadZone" tabindex="0" role="button">
+            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg>
+            <p><span data-i18n="img_drop">Glissez votre image ici ou</span> <button class="btn-text" id="browseImageBtn" data-i18n="btn_browse">Parcourir</button></p>
+            <button class="btn btn-primary" id="takePhotoBtn">📷 <span data-i18n="btn_capture">Prendre photo</span></button>
+            <p class="upload-text" id="imageUploadText" data-i18n="img_idle">Aucun fichier image choisi</p>
+          </div>
+          <div class="preview-wrap hidden" id="imagePreviewWrap">
+            <img id="imagePreview" alt="Apeçu" />
+          </div>
+          <button id="analyzeImageBtn" class="btn btn-primary" disabled data-i18n="btn_analyze_img">1) Generer le resultat (image)</button>
         </div>
       </div>
-      <div class="result-grid">
+    </section>
+
+    <!-- potato stepper ... -->
+    <div class="potato-stepper-wrap hidden" id="potatoStepper">
+      <div class="track-wrapper">
+        <div class="stepper-track-bg"></div>
+        <div class="stepper-track-fill" id="stepperFill"></div>
+        <img src="assets/vecteezy_single-russet-potato-on-white-background_58271985.png" class="rolling-potato" id="rollingPotato" alt="Loading Potato" />
+      </div>
+      <div class="stepper-steps">
+        <div class="stepper-step" id="step1">
+          <div class="step-dot"></div><p data-i18n="step_track_1">Upload</p>
+        </div>
+        <div class="stepper-step" id="step2">
+          <div class="step-dot"></div><p data-i18n="step_track_2">Pre-traitement</p>
+        </div>
+        <div class="stepper-step" id="step3">
+          <div class="step-dot"></div><p data-i18n="step_track_3">IA YOLO</p>
+        </div>
+        <div class="stepper-step" id="step4">
+          <div class="step-dot"></div><p data-i18n="step_track_4">Finalisation</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT CARD -->
+    <section class="card result-card" id="resultCard">
+      <h2 data-i18n="result_title">Resultat</h2>
+      <div class="result-grid main-stats">
+        <!-- Dashboard Speedometer for Risk -->
+        <div class="gauge-box">
+          <p class="label" data-i18n="lbl_risk">Risque Mildiou</p>
+          <div class="circular-gauge">
+            <svg viewBox="0 0 100 50">
+              <path class="gauge-bg" d="M 10,50 A 40,40 0 0,1 90,50" fill="none" />
+              <path class="gauge-fill" id="gaugeFill" d="M 10,50 A 40,40 0 0,1 90,50" fill="none" stroke-dasharray="125.6" stroke-dashoffset="125.6" />
+            </svg>
+            <div class="gauge-center-text" id="riskValue">--</div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <p class="label" data-i18n="lbl_health">Score Sante</p>
+          <p class="score" id="healthScoreValue">-- / 100</p>
+        </div>
+        <div class="stat-box">
+          <p class="label" data-i18n="lbl_count">Plants Detectes</p>
+          <p class="score" id="countValue">--</p>
+        </div>
+      </div>
+
+      <div class="result-grid secondary-stats">
         <div>
-          <p class="label" title="Stade précoce (early)">Early (stade precoce)</p>
+          <p class="label" title="Stade précoce" data-i18n="lbl_early">Early (stade precoce)</p>
           <p class="score" id="sickEarlyValue">--</p>
         </div>
         <div>
-          <p class="label" title="Stade avancé (late)">Late (stade avance)</p>
+          <p class="label" title="Stade avancé" data-i18n="lbl_late">Late (stade avance)</p>
           <p class="score" id="sickLateValue">--</p>
         </div>
+        <div>
+          <p class="label" data-i18n="lbl_tracking">Confiance de Suivi</p>
+          <p class="score" id="trackValue">--</p>
+        </div>
       </div>
-      <p class="feedback" id="feedbackText">Importez une image ou une video puis cliquez sur "Generer le resultat".</p>
+
+      <p class="feedback" id="feedbackText" data-i18n="feedback_idle">Importez une image ou une video puis cliquez sur "Generer le resultat".</p>
+      
       <div class="download-row hidden" id="downloadRow">
-        <p class="hint download-hint">Resultat annote</p>
-        <a id="downloadLink" class="btn btn-secondary" href="#" download>Télécharger le résultat annoté</a>
+        <p class="hint download-hint" data-i18n="download_hint">Resultat annote</p>
+        <a id="downloadLink" class="btn btn-secondary" href="#" download data-i18n="btn_down_res">Télécharger le résultat annoté</a>
+        <button id="downloadPdfBtn" class="btn btn-secondary" data-i18n="btn_down_pdf">Télécharger le Rapport (PDF)</button>
       </div>
+
       <div class="result-actions">
-        <button id="resetAllBtn" class="btn btn-ghost" disabled>Effacer</button>
+        <button id="resetAllBtn" class="btn btn-ghost" disabled data-i18n="btn_reset">Effacer</button>
       </div>
     </section>
   </main>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
-

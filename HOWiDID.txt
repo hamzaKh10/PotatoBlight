@@ -1,0 +1,56 @@
+=========================================================
+POTATO BLIGHT AI - HOW WE BUILT AND DEPLOYED IT
+=========================================================
+
+This document explains exactly how we integrated the "best4.pt" deep learning YOLO model into the PotatoSite project and successfully put it on the internet for free.
+
+---------------------------------------------------------
+1. THE BACKEND API & DEEP LEARNING INTEGRATION
+---------------------------------------------------------
+Originally, the backend `app.py` was generating fake random numbers for the disease counts and health scores. 
+
+To merge the real AI model:
+- We placed your `best4.pt` model inside the `backend/models` folder.
+- We updated `app.py` to import the `ultralytics` YOLO library.
+- We rewrote the `run_model_inference` function to actually load your model and run it on the uploaded potato picture.
+- Instead of returning random numbers, the program now dynamically scans the AI's predictions (`result.boxes` and `result.names`). It looks at the names the model outputs and counts "early blight", "late blight", and "healthy" spots.
+- It uses OpenCV (`cv2`) to draw bounding boxes around the diseases and saves the annotated photo back to the user.
+- We also created a `requirements.txt` file listing exactly what Python packages the AI needs (like FastAPI, ultralytics, opencv, etc.).
+
+---------------------------------------------------------
+2. LOCAL DEVELOPMENT SCRIPT
+---------------------------------------------------------
+To make testing easier on your own laptop, we created a file called `run_all.bat`.
+This is an automated script that creates a virtual environment, installs the massive PyTorch packages, boots up your `app.py` server in the background, and opens your website. This lets you test the exact same AI pipeline on your computer without needing the internet.
+
+---------------------------------------------------------
+3. THE DEPLOYMENT CHALLENGE & HUGGING FACE
+---------------------------------------------------------
+Most websites use cheap, free servers (like Render or Railway) that only give you 500MB of RAM. Artificial Intelligence models like YOLO inside PyTorch require at least 2GB of RAM just to boot up! If you put this on a normal server, it would crash instantly.
+
+This is what **Hugging Face** is for. 
+Hugging Face is a sandbox designed specifically for AI. Their free "Spaces" tier gives you an entire Linux server with 16GB of RAM—plenty of room for PyTorch.
+
+How we hosted the backend there:
+- We wrote a `Dockerfile` that tells Hugging Face exactly how to build a Linux operating system, install Python, download PyTorch, and run our FastAPI server on their special port number (7860).
+- We uploaded the `backend/` folder to them. 
+- You noticed it was stuck on an orange "Building" circle for a long time. This was normal—you were watching it download a massive 2.5 GB AI brain onto a fresh computer in the cloud. Once it finished, the backend API went officially live.
+
+---------------------------------------------------------
+4. THE FRONTEND & NETLIFY
+---------------------------------------------------------
+Your website code (HTML/JS/CSS) was easy to host. But the Javascript (`frontend/script.js`) needed to know WHERE to send the potato pictures. 
+
+Previously, `config.js` was set to `http://127.0.0.1:8000` (which is your own laptop). We updated `config.js` to point to the live Hugging Face URL instead: `https://hamzakharmouch-potatoblight.hf.space`
+
+Once the link was updated, we simply dragged the `frontend` folder into Netlify Drop. Netlify is a service that hosts website files blazingly fast worldwide for free.
+
+---------------------------------------------------------
+SUMMARY
+---------------------------------------------------------
+When your friend goes to the Netlify link:
+1. They are looking at the website files hosted by Netlify.
+2. When they click "Generer", the website sends the photo securely across the internet to the Hugging Face server.
+3. Hugging Face passes the photo through your `best4.pt` YOLO model inside `app.py`.
+4. Hugging Face replies back with the disease stats and the newly drawn bounding box image.
+5. Netlify updates the screen for your friend!

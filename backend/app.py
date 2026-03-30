@@ -47,22 +47,36 @@ def run_model_inference(file_path: Path, output_dir: Path) -> dict:
             detail="Failed to load the YOLO model. Check if ultralytics is installed."
         )
 
-    # Run inference (conf=0.25 is default, adjust if needed)
-    results = model.predict(source=str(file_path), conf=0.25)
-    result = results[0]
-
     output_dir.mkdir(parents=True, exist_ok=True)
-    output_name = f"{file_path.stem}_output{file_path.suffix}"
-    output_path = output_dir / output_name
+    
+    # Use ultralytics built-in save to safely handle both images and videos
+    run_dir = output_dir / "predict_temp"
+    if run_dir.exists():
+        shutil.rmtree(str(run_dir), ignore_errors=True)
+        
+    # stream=True ensures memory is safe for videos. We must iterate to process all frames.
+    first_result = None
+    for r in model.predict(source=str(file_path), conf=0.25, save=True, project=str(output_dir), name="predict_temp", exist_ok=True, stream=True):
+        if first_result is None:
+            first_result = r
 
-    # Save annotated image
-    try:
-        # result.plot() returns a numpy array (BGR image)
-        annotated_img = result.plot()
-        cv2.imwrite(str(output_path), annotated_img)
-    except Exception as e:
-        print(f"Error saving image: {e}")
+    if first_result is None:
+        raise HTTPException(status_code=500, detail="Failed to run inference on the file.")
+
+    result = first_result
+
+    # YOLO saves videos as .avi or .mp4, so we must find the exact file it generated
+    saved_files = list(run_dir.glob("*"))
+    if not saved_files:
         output_path = None
+    else:
+        yolo_output = saved_files[0]
+        output_name = f"{file_path.stem}_output{yolo_output.suffix}"
+        output_path = output_dir / output_name
+        
+        # Move the completed annotated file from YOLO's folder back to our outputs folder
+        shutil.copy(str(yolo_output), str(output_path))
+        shutil.rmtree(str(run_dir), ignore_errors=True)
 
     # Calculate stats based on model classes
     plant_count = len(result.boxes)
