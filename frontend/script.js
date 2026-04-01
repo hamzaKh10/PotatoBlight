@@ -70,27 +70,52 @@ const TRANSLATIONS = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  const langSelect = document.getElementById("langSelect");
-  if(langSelect) {
-    langSelect.addEventListener("change", (e) => {
-      currentLang = e.target.value;
-      const htmlEl = document.documentElement;
-      htmlEl.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
-      htmlEl.setAttribute("lang", currentLang);
-      
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.getAttribute("data-i18n");
-        if(TRANSLATIONS[currentLang][key]) {
-          if(el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-            el.placeholder = TRANSLATIONS[currentLang][key];
-          } else {
-            el.textContent = TRANSLATIONS[currentLang][key];
+  const langSelector = document.querySelector(".lang-selector");
+  const langDropdown = document.getElementById("langDropdown");
+  const activeLangText = document.getElementById("activeLangText");
+
+  if(langSelector) {
+    langSelector.addEventListener("click", (e) => {
+      e.stopPropagation();
+      langDropdown.classList.toggle("active");
+    });
+
+    document.addEventListener("click", () => {
+      langDropdown.classList.remove("active");
+    });
+
+    document.querySelectorAll(".lang-option").forEach(opt => {
+      // Set initial active state highlight
+      if (opt.getAttribute("data-value") === currentLang) {
+        opt.classList.add("selected");
+      }
+
+      opt.addEventListener("click", (e) => {
+        const target = e.currentTarget;
+        currentLang = target.getAttribute("data-value");
+        if(activeLangText) activeLangText.textContent = currentLang.toUpperCase();
+        
+        // Highlight logic
+        document.querySelectorAll(".lang-option").forEach(o => o.classList.remove("selected"));
+        target.classList.add("selected");
+        
+        const htmlEl = document.documentElement;
+        htmlEl.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
+        htmlEl.setAttribute("lang", currentLang);
+
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+          const key = el.getAttribute("data-i18n");
+          if(TRANSLATIONS[currentLang][key]) {
+            if(el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+              el.placeholder = TRANSLATIONS[currentLang][key];
+            } else {
+              el.textContent = TRANSLATIONS[currentLang][key];
+            }
           }
-        }
+        });
+        
+        checkApiHealth();
       });
-      
-      // Auto-update active API pill translation if not busy
-      checkApiHealth();
     });
   }
 });
