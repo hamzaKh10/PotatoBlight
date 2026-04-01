@@ -216,12 +216,14 @@ function setApiStatus(state, keyOrText, title) {
 
 async function checkApiHealth() {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8000); // Increased from 2500 to 8000
+  // Set a long timeout (60s) because Hugging Face Spaces can be slow to wake up
+  const timeout = setTimeout(() => controller.abort(), 60000); 
 
-  // Detect if we were offline
-  const wasOffline = apiPill.classList.contains("api-bad") || apiPill.classList.contains("api-unknown");
+  const wasBad = apiPill.classList.contains("api-bad");
+  const isInitial = apiPill.classList.contains("api-unknown");
 
   try {
+    console.log("Checking API health at:", API_BASE);
     const response = await fetch(`${API_BASE}/api/health`, {
       method: "GET",
       signal: controller.signal
@@ -230,18 +232,18 @@ async function checkApiHealth() {
     const data = await response.json();
 
     if (data?.status === "ok" && data?.model_exists) {
-      if (wasOffline) {
-        // Show "refreshing/verifying" phase before turning green
+      if (wasBad) {
+        // Only show "refreshing" transition if we were actually offline
         setApiStatus("api-unknown", "Systeme: verification...", "Reconnexion...");
         await new Promise(r => setTimeout(r, 1800));
       }
       setApiStatus("api-ok", "Systeme: pret", "Systeme pret");
-    } else if (data?.status === "ok" && !data?.model_exists) {
-      setApiStatus("api-warn", "Systeme: non pret", "Modele manquant sur le serveur");
+      console.log("API Status: Ready");
     } else {
-      setApiStatus("api-warn", "Systeme: non pret", "Systeme non pret");
+      setApiStatus("api-warn", "Systeme: non pret", "Modele manquant sur le serveur");
     }
   } catch (e) {
+    console.warn("API Health Check failed:", e.message);
     setApiStatus("api-bad", "Systeme: indisponible", "Backend indisponible");
   } finally {
     clearTimeout(timeout);
