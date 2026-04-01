@@ -227,10 +227,10 @@ body::after {
   inset: -60px -40px -20px -40px;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.03;
+  opacity: 0.1;
   background:
-    url("assets/vecteezy_close-up-of-a-russet-potato-with-rough-earthy-texture-and_58272011.png") no-repeat right -60px top -90px / clamp(360px, 46vw, 640px),
-    url("assets/vecteezy_lush-green-mango-leaf-displayed-on-a-clean-transparent_57448037.png") no-repeat left -140px top -110px / clamp(320px, 44vw, 600px);
+    url("assets/potato.svg") no-repeat right 40px top 20px / 80px auto,
+    url("assets/leaf.svg") no-repeat left 60px top 10px / 70px auto;
 }
 
 h1 {
@@ -260,7 +260,7 @@ h1 {
 .media-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+  gap: 16px;
 }
 
 .card h2 {
@@ -276,7 +276,7 @@ h1 {
 .upload-zone {
   display: grid;
   place-items: center;
-  min-height: 150px;
+  min-height: 100px;
   border: 2px dashed color-mix(in srgb, var(--accent) 38%, var(--line) 62%);
   border-radius: 14px;
   background:
@@ -295,6 +295,14 @@ h1 {
   background:
     radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--accent-2) 22%, transparent 78%) 0%, transparent 54%),
     linear-gradient(160deg, #ffffff, #eaf7ea);
+}
+
+.upload-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 2px;
+  opacity: 0.8;
+  color: var(--accent);
 }
 
 .upload-zone input {
