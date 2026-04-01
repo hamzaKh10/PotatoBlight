@@ -45,20 +45,19 @@ body::after {
 }
 
 /* Real photos (your provided PNGs) as subtle background collage */
+/* Replaced heavy PNGs with lighter SVG textures to fix lag */
 body::before {
-  opacity: 0.04;
+  opacity: 0.1;
   background:
-    url("assets/vecteezy_lush-green-mango-leaf-displayed-on-a-clean-transparent_57448037.png") no-repeat left -220px top -160px / 780px auto,
-    url("assets/vecteezy_leaf-greenery-plant-foliage-on-transparent-background_70649617.png") no-repeat right -240px top 80px / 640px auto,
-    url("assets/vecteezy_lush-green-mango-leaf-displayed-on-a-clean-transparent_57448037.png") no-repeat left -260px bottom -220px / 700px auto;
+    url("assets/leaf.svg") no-repeat left 20px top 40px / 120px auto,
+    url("assets/potato.svg") no-repeat right 30px top 120px / 100px auto,
+    url("assets/leaf.svg") no-repeat left 40px bottom 60px / 90px auto;
 }
 
 body::after {
-  opacity: 0.03;
+  opacity: 0.08;
   background:
-    url("assets/vecteezy_close-up-of-a-russet-potato-with-rough-earthy-texture-and_58272011.png") no-repeat right -260px bottom -260px / 820px auto,
-    url("assets/vecteezy_rustic-organic-potato-on-white-background_58272009.png") no-repeat left -220px bottom -220px / 620px auto,
-    url("assets/vecteezy_single-russet-potato-on-white-background_58271985.png") no-repeat right -140px top 460px / 380px auto;
+    url("assets/nature-texture.svg") repeat center / 400px auto;
 }
 
 .bg-shape {
