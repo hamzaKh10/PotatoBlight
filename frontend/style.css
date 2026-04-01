@@ -90,6 +90,7 @@ body::after {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  direction: ltr !important; /* Keep selector left, pill right always */
 }
 
 .api-pill {
