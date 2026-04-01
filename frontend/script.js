@@ -21,7 +21,8 @@ const TRANSLATIONS = {
     feedback_idle: "Importez une image ou une video puis cliquez sur 'Generer le resultat'.",
     download_hint: "Resultat annote", btn_down_res: "Télécharger le résultat annoté",
     btn_down_pdf: "Télécharger le Rapport (PDF)", btn_reset: "Effacer",
-    landing_subtitle: "Solutions d'Intélligence Artificielle pour la Santé des Cultures", landing_btn: "Essayer notre Modèle"
+    landing_title: "BATATA BLIGHT", landing_subtitle: "Solutions d'Intélligence Artificielle pour la Santé des Cultures", landing_btn: "Essayer notre Modèle",
+    hero_title: "BATATA BLIGHT"
   },
   en: {
     hero_subtitle: "Upload an image or video to get tracking, counting, and late blight risk levels.",
@@ -43,7 +44,8 @@ const TRANSLATIONS = {
     feedback_idle: "Upload an image or video then click 'Generate result'.",
     download_hint: "Annotated result", btn_down_res: "Download annotated result",
     btn_down_pdf: "Download Report (PDF)", btn_reset: "Clear",
-    landing_subtitle: "Artificial Intelligence Solutions for Crop Health", landing_btn: "Try Our Model"
+    landing_title: "BATATA BLIGHT", landing_subtitle: "Artificial Intelligence Solutions for Crop Health", landing_btn: "Try Our Model",
+    hero_title: "BATATA BLIGHT"
   },
   ar: {
     hero_subtitle: "قم بتحميل صورة أو فيديو للحصول على التتبع والعد ومستوى خطر اللفحة المتأخرة",
@@ -63,9 +65,10 @@ const TRANSLATIONS = {
     lbl_risk: "خطر اللفحة", lbl_health: "درجة الصحة", lbl_count: "عدد النباتات",
     lbl_early: "مرحلة مبكرة", lbl_late: "مرحلة متأخرة", lbl_tracking: "ثقة التتبع",
     feedback_idle: "قم باستيراد صورة أو فيديو ثم انقر فوق 'توليد النتيجة'",
-    download_hint: "نتائج مشروحة", btn_down_res: "تنزيل النتيجة",
-    btn_down_pdf: "تنزيل التقرير", btn_reset: "مسح",
-    landing_subtitle: "حلول الذكاء الاصطناعي لصحة المحاصيل", landing_btn: "تجربة النموذج"
+    download_hint: "النتيجة المعبر عنها", btn_down_res: "تحميل النتيجة",
+    btn_down_pdf: "تحميل التقرير (PDF)", btn_reset: "مسح",
+    landing_title: "لفحة البطاطس", landing_subtitle: "حلول الذكاء الاصطناعي لصحة المحاصيل", landing_btn: "جرب نموذجنا",
+    hero_title: "لفحة البطاطس"
   }
 };
 
