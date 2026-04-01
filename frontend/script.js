@@ -69,6 +69,29 @@ const TRANSLATIONS = {
     btn_down_pdf: "تحميل التقرير (PDF)", btn_reset: "مسح",
     landing_title: "لفحة البطاطس", landing_subtitle: "حلول الذكاء الاصطناعي لصحة المحاصيل", landing_btn: "جرب نموذجنا",
     hero_title: "لفحة البطاطس"
+  },
+  ma: {
+    hero_subtitle: "لوح صورة ولا فيديو باش تعرف شحال كاين من بطاطا وتعرف خطر الميدلو",
+    sys_verifying: "السيسطيم: كنتحققو...",
+    sys_ready: "السيسطيم: واجد",
+    sys_offline: "السيسطيم: ماخدامش",
+    step1_title: "جيب التصويرة", step1_desc: "عزل شي صورة ولا فيديو",
+    step2_title: "خرج النتيجة", step2_desc: "برك على 'خرج النتيجة'",
+    step3_title: "شوف النتيجة", step3_desc: "الذكاء الاصطناعي كيشوف البطاطا ديالك",
+    img_drop: "حط تصويرتك هنا ولا", btn_browse: "قلب في الملفات", btn_capture: "صور دابا",
+    img_idle: "مازال ما عزلتي حتى تصويرة",
+    btn_analyze_img: "خرج النتيجة (تصويرة)",
+    vid_drop: "حط الفيديو هنا ولا", vid_idle: "مازال ما عزلتي حتى فيديو",
+    btn_analyze_vid: "خرج النتيجة (فيديو)",
+    step_track_1: "تحميل", step_track_2: "تحضير", step_track_3: "ذكاء اصطناعي", step_track_4: "نهاية",
+    result_title: "النتائج",
+    lbl_risk: "خطر الميدلو", lbl_health: "نقطة الصحة", lbl_count: "البطاطا اللي لقينا",
+    lbl_early: "بداية الميدلو", lbl_late: "ميدلو متأخر", lbl_tracking: "ثقة التتبع",
+    feedback_idle: "حط شي تصويرة ولا فيديو وبرك على 'خرج النتيجة'",
+    download_hint: "النتيجة", btn_down_res: "تحميل النتيجة",
+    btn_down_pdf: "تحميل التقرير (PDF)", btn_reset: "مسح كولشي",
+    landing_title: "بطاطا بلايت", landing_subtitle: "حلول الذكاء الاصطناعي لصحة النباتات", landing_btn: "جرب الموديل",
+    hero_title: "بطاطا بلايت"
   }
 };
 
@@ -103,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
         target.classList.add("selected");
         
         const htmlEl = document.documentElement;
-        htmlEl.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
+        htmlEl.setAttribute("dir", (currentLang === "ar" || currentLang === "ma") ? "rtl" : "ltr");
         htmlEl.setAttribute("lang", currentLang);
 
         document.querySelectorAll("[data-i18n]").forEach(el => {
