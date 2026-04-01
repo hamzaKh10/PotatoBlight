@@ -205,7 +205,8 @@ function setApiStatus(state, keyOrText, title) {
   const map = {
     "api-ok": { fr: "Systeme: pret", en: "System: ready", ar: "النظام: جاهز" },
     "api-warn": { fr: "Systeme: non pret", en: "System: not ready", ar: "النظام: غير جاهز" },
-    "api-bad": { fr: "Systeme: indisponible", en: "System: unavailable", ar: "النظام: غير متوفر" }
+    "api-bad": { fr: "Systeme: indisponible", en: "System: unavailable", ar: "النظام: غير متوفر" },
+    "api-unknown": { fr: "Systeme: verification...", en: "System: verifying...", ar: "النظام: جار التحقق..." }
   };
   
   const text = map[state] ? map[state][currentLang] : keyOrText;
@@ -215,7 +216,10 @@ function setApiStatus(state, keyOrText, title) {
 
 async function checkApiHealth() {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8000); // Increased from 2500 to 8000 to prevent false "Indisponible" on free tier
+  const timeout = setTimeout(() => controller.abort(), 8000); // Increased from 2500 to 8000
+
+  // Detect if we were offline
+  const wasOffline = apiPill.classList.contains("api-bad") || apiPill.classList.contains("api-unknown");
 
   try {
     const response = await fetch(`${API_BASE}/api/health`, {
@@ -224,7 +228,13 @@ async function checkApiHealth() {
     });
     if (!response.ok) throw new Error("Bad status");
     const data = await response.json();
+
     if (data?.status === "ok" && data?.model_exists) {
+      if (wasOffline) {
+        // Show "refreshing/verifying" phase before turning green
+        setApiStatus("api-unknown", "Systeme: verification...", "Reconnexion...");
+        await new Promise(r => setTimeout(r, 1800));
+      }
       setApiStatus("api-ok", "Systeme: pret", "Systeme pret");
     } else if (data?.status === "ok" && !data?.model_exists) {
       setApiStatus("api-warn", "Systeme: non pret", "Modele manquant sur le serveur");
