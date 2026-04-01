@@ -254,10 +254,10 @@ function setApiStatus(state, keyOrText, title) {
   
   // Realtime multi-language for system statuses
   const map = {
-    "api-ok": { fr: "Systeme: pret", en: "System: ready", ar: "النظام: جاهز" },
-    "api-warn": { fr: "Systeme: non pret", en: "System: not ready", ar: "النظام: غير جاهز" },
-    "api-bad": { fr: "Systeme: indisponible", en: "System: unavailable", ar: "النظام: غير متوفر" },
-    "api-unknown": { fr: "Systeme: verification...", en: "System: verifying...", ar: "النظام: جار التحقق..." }
+    "api-ok": { fr: "Systeme: pret", en: "System: ready", ar: "النظام: جاهز", ma: "السيسطيم: واجد" },
+    "api-warn": { fr: "Systeme: non pret", en: "System: not ready", ar: "النظام: غير جاهز", ma: "السيسطيم: ماواجدش" },
+    "api-bad": { fr: "Systeme: indisponible", en: "System: unavailable", ar: "النظام: غير متوفر", ma: "السيسطيم: ماخدامش" },
+    "api-unknown": { fr: "Systeme: verification...", en: "System: verifying...", ar: "النظام: جار التحقق...", ma: "السيسطيم: كنتحققو..." }
   };
   
   const text = map[state] ? map[state][currentLang] : keyOrText;
