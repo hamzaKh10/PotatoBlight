@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport de Projet de Fin d'Études - Hamza - PotatoBlight</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #000000;
+            --keyword-green: #2e7d32;
+            --text-dark: #000000;
+            --bg-page: #ffffff;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #eee; margin: 0; color: var(--text-dark); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 2.5cm 2.5cm 2.5cm 3.5cm; /* Left binding margin */
+            margin: 1cm auto;
+            background: var(--bg-page);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            break-after: page;
+        }
+
+        @media print {
+            body { background: none; margin: 0; padding: 0; }
+            .page { margin: 0; box-shadow: none; border: none; width: 100%; height: 297mm; overflow: hidden; }
+            @page { size: A4; margin: 0; }
+        }
+
+        h1, h2, h3, h4 { font-family: 'Crimson Pro', serif; margin-top: 1.5rem; color: var(--text-dark); break-after: avoid; }
+        h1 { font-size: 26pt; font-weight: 700; text-align: center; margin-top: 1cm; line-height: 1.2; text-transform: uppercase; border: 4px solid #000; padding: 1cm; }
+        h2 { font-size: 18pt; font-weight: 700; border-bottom: 2px solid #000; padding-bottom: 5px; margin-top: 2rem; text-transform: uppercase; clear: both; }
+        h3 { font-size: 14pt; margin-top: 1.2rem; font-weight: 700; color: #000; }
+        
+        p { text-align: justify; margin-bottom: 12pt; text-indent: 1.25cm; font-size: 11pt; color: #000; }
+        
+        ul, ol { margin-bottom: 1rem; padding-left: 1.5cm; }
+        li { margin-bottom: 0.6rem; text-align: justify; font-size: 10.5pt; color: #000; }
+
+        .kw { color: var(--keyword-green); font-weight: 600; }
+
+        /* TOC style */
+        .toc-list { list-style: none; padding: 0; }
+        .toc-item { display: flex; justify-content: space-between; align-items: baseline; margin: 12px 0; font-weight: 600; font-size: 11pt; }
+        .toc-item::after { content: ""; flex-grow: 1; border-bottom: 1px dotted #000; margin: 0 10px; }
+        .toc-sub { list-style: none; padding-left: 1cm; margin-bottom: 15px; }
+        .toc-sub li { display: flex; justify-content: space-between; align-items: baseline; font-size: 10pt; font-weight: normal; margin: 4px 0; font-style: italic; }
+        .toc-sub li::after { content: ""; flex-grow: 1; border-bottom: 1px dotted #ccc; margin: 0 10px; }
+
+        .image-center { text-align: center; margin: 2rem 0; break-inside: avoid; }
+        .image-center img { max-width: 80%; border: 1px solid #ddd; padding: 3px; border-radius: 4px; }
+        .fig-caption { font-size: 9pt; font-style: italic; margin-top: 8px; color: #444; }
+
+        .inline-logo { float: right; height: 35px; margin: 5px 0 10px 15px; }
+
+        .chapter-badge { float: left; width: 60px; height: 60px; background: #000; color: #fff; text-align: center; line-height: 60px; font-size: 24pt; font-family: 'Crimson Pro'; font-weight: 700; margin-right: 15px; border-radius: 4px; }
+
+        .footer { position: absolute; bottom: 1cm; left: 0; right: 0; text-align: center; font-size: 10pt; font-family: 'Inter', sans-serif; height: 20px; }
+
+        blockquote { background: #f9f9f9; border-left: 5px solid var(--keyword-green); padding: 1.2rem; font-style: italic; margin: 1.5rem 0; break-inside: avoid; }
+
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1 : COVER -->
+    <div class="page">
+        <div style="text-align: center; font-weight: 700; border-bottom: 3px solid #000; padding-bottom: 10px;">
+            ROYAUME DU MAROC<br>
+            UNIVERSITÉ MOHAMMED PREMIER<br>
+            ÉCOLE SUPÉRIEURE DE TECHNOLOGIE - OUJDA (ESTO)<br>
+            DÉPARTEMENT IDIA
+        </div>
+
+        <div style="margin-top: 3cm; text-align: center;">
+            <div style="font-size: 14pt; font-weight: 600;">PROJET DE FIN D'ÉTUDES</div>
+            <h1>Système Intégré de Détection et Suivi Automatique du Mildiou par Vision Artificielle (YOLOv8)</h1>
+            <p style="text-align: center; text-indent: 0; font-style: italic; margin-top: 1cm;">
+                Conception d'un Outil d'Aide à la Décision (OAD) et déploiement Cloud pour l'agriculture de précision
+            </p>
+        </div>
+
+        <div class="image-center">
+            <img src="../assets/vecteezy_rustic-organic-potato-on-white-background_58272009.png" style="height: 200px; border: none;">
+        </div>
+
+        <div style="margin-top: 3cm; display: flex; justify-content: space-between; border-top: 1px solid #000; padding-top: 20px;">
+            <div><strong>Réalisé par :</strong><br>HAMZA</div>
+            <div style="text-align: right;"><strong>Encadrant :</strong><br>M. MOUNIR GRARI</div>
+        </div>
+
+        <div style="position: absolute; bottom: 2cm; left: 0; right: 0; text-align: center; font-weight: 700;">
+            SESSION MAI 2026
+        </div>
+        <div class="footer">— 1 —</div>
+    </div>
+
+    <!-- PAGE 2 : REMERCIEMENTS & ABSTRACTS -->
+    <div class="page">
+        <h2>Remerciements</h2>
+        <p>Mes remerciements les plus sincères s'adressent à mon encadrant, <span class="kw">M. Mounir Grari</span>, pour son accompagnement, sa rigueur et sa confiance tout au long de ce Projet de Fin d'Études. Son expertise en intelligence artificielle a été une source d'inspiration majeure.</p>
+        <p>Je remercie également l'ensemble de l'équipe pédagogique du département <span class="kw">IDIA</span> de l'EST Oujda pour la qualité de l'enseignement reçu.</p>
+
+        <h2 style="margin-top: 1cm;">RÉSUMÉ</h2>
+        <blockquote>
+            Ce rapport détaille la conception d'un Outil d'Aide à la Décision (OAD) pour la détection automatisée du mildiou de la pomme de terre. En utilisant l'architecture <span class="kw">YOLOv8</span>, nous avons développé un système de vision artificielle capable d'identifier les symptômes en temps réel. Le projet couvre l'acquisition de données, l'augmentation (70 à 950 images), l'entraînement et le déploiement sur <span class="kw">Docker</span> et <span class="kw">FastAPI</span>.
+        </blockquote>
+
+        <h2 style="margin-top: 1cm;">ABSTRACT (RÉSUMÉ)</h2>
+        <blockquote>
+            This project focuses on building a Decision Support Tool for identifying potato late blight disease. Leveraging the <span class="kw">YOLOv8</span> architecture, we deployed an end-to-end computer vision pipeline. The technical stack includes data augmentation via <span class="kw">Roboflow</span>, model training, and continuous deployment through <span class="kw">Docker</span> and <span class="kw">Hugging Face</span>.
+        </blockquote>
+        <div class="footer">— 2 —</div>
+    </div>
+
+    <!-- PAGE 3 : SOMMAIRE -->
+    <div class="page">
+        <h2>Sommaire</h2>
+        <ul class="toc-list">
+            <li>
+                <div class="toc-item"><span>Introduction Générale</span><span>4</span></div>
+            </li>
+            <li>
+                <div class="toc-item"><span>Chapitre 1 — Généralités Vision & Agriculture</span><span>5</span></div>
+            </li>
+            <li>
+                <div class="toc-item"><span>Chapitre 2 — Deep Learning et YOLOv8</span><span>6</span></div>
+            </li>
+            <li>
+                <div class="toc-item"><span>Chapitre 3 — Implémentation technique</span><span>7</span></div>
+                <ul class="toc-sub">
+                    <li><span>Stack technologique et Environnement</span><span>7</span></li>
+                    <li><span>Préparation des données (Label Studio & Roboflow)</span><span>8</span></li>
+                    <li><span>Développement Backend et Conteneurisation</span><span>9</span></li>
+                </ul>
+            </li>
+            <li>
+                <div class="toc-item"><span>Chapitre 4 — Résultats et Analyses</span><span>10</span></div>
+                <ul class="toc-sub">
+                    <li><span>Interface Utilisateur Dashboard</span><span>10</span></li>
+                    <li><span>Analyse des performances du modèle</span><span>11</span></li>
+                </ul>
+            </li>
+            <li>
+                <div class="toc-item"><span>Conclusion et Perspectives</span><span>12</span></div>
+            </li>
+        </ul>
+        <div class="footer">— 3 —</div>
+    </div>
+
+    <!-- PAGE 4 : INTRODUCTION -->
+    <div class="page">
+        <h2>Introduction Générale</h2>
+        <h3>● Contexte et Enjeux</h3>
+        <p>L’agriculture marocaine fait face à des défis climatiques et biologiques croissants. Le mildiou de la pomme de terre, causé par <i>Phytophthora infestans</i>, peut anéantir une récolte entière en quelques jours si le diagnostic n'est pas posé à temps.</p>
+
+        <h3>● Problématique</h3>
+        <p>Le diagnostic actuel est manuel, subjectif et souvent tardif. Comment transformer un simple smartphone ou une caméra de surveillance en un expert phytosanitaire capable de détecter les premières taches de maladie ?</p>
+
+        <h3>● Méthodologie adoptée</h3>
+        <p>Notre approche repose sur l'agriculture de précision. En utilisant des algorithmes de <span class="kw">Deep Learning</span>, nous automatisons la reconnaissance visuelle pour offrir un diagnostic objectif, rapide et géolocalisé via une interface web moderne.</p>
+        <div class="footer">— 4 —</div>
+    </div>
+
+    <!-- PAGE 5 : CHAP 1 -->
+    <div class="page">
+        <div class="chapter-badge">01</div>
+        <h2>Généralités sur la Vision par Ordinateur</h2>
+        <p>La vision par ordinateur est le domaine de l'IA qui permet aux machines de "voir" et d'interpréter leur environnement. Dans l'agriculture, elle est utilisée pour le comptage de fruits, la détection de mauvaises herbes et le suivi de santé des cultures.</p>
+        
+        <h3>● Agriculture de Précision</h3>
+        <p>L'agriculture de précision utilise des capteurs et de l'imagerie pour optimiser l'usage des intrants (engrais, pesticides). L'objectif est de traiter les zones infectées "au bon endroit et au bon moment", réduisant ainsi l'impact écologique et les coûts de production.</p>
+        
+        <div class="image-center" style="margin-top: 3cm;">
+            <img src="../assets/nature-texture.svg" style="height: 150px; border: none; box-shadow: none;">
+            <p class="fig-caption">Fig. 1 : Schéma conceptuel de l'IA appliquée à la surveillance végétale</p>
+        </div>
+        <div class="footer">— 5 —</div>
+    </div>
+
+    <!-- PAGE 6 : CHAP 2 -->
+    <div class="page">
+        <div class="chapter-badge">02</div>
+        <h2>Deep Learning et Architecture YOLOv8</h2>
+        <p>Le Deep Learning repose sur les réseaux de neurones convolutifs (CNN). Pour ce projet, nous avons choisi <span class="kw">YOLOv8</span> (You Only Look Once).</p>
+        
+        <img src="https://ultralytics.com/static/images/logo-ultralytics.png" class="inline-logo">
+        <h3>● Pourquoi YOLOv8 ?</h3>
+        <p>Contrairement aux anciens modèles comme Faster R-CNN, YOLO analyse l'image entière en une seule passe, ce qui le rend extrêmement rapide (> 30 FPS). Il est idéal pour le suivi en temps réel sur des terminaux mobiles ou des flux vidéo.</p>
+        
+        <h3>● Métriques de Performance</h3>
+        <p>Nous évaluons le modèle via le mAP (Mean Average Precision), qui mesure l'exactitude de la localisation de la maladie, et le Rappel (Recall), indispensable pour ne manquer aucune feuille infectée.</p>
+        <div class="footer">— 6 —</div>
+    </div>
+
+    <!-- PAGE 7 : CHAP 3 - Stack -->
+    <div class="page">
+        <div class="chapter-badge">03</div>
+        <h2>Implémentation Technique</h2>
+        <h3>● Outils et Technologies</h3>
+        <p>Le développement repose sur une stack moderne axée sur la performance et l'évolutivité :</p>
+        <ul>
+            <li><strong>Python 3.10 :</strong> Cœur du projet pour sa richesse en bibliothèques de data-science.</li>
+            <li><strong>FastAPI :</strong> <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" class="inline-logo"> FrameWork backend choisi pour son asynchronicité native, permettant de traiter plusieurs flux d'images simultanément sans ralentir le serveur.</li>
+            <li><strong>Docker :</strong> <img src="https://www.docker.com/wp-content/uploads/2021/11/docker-container-logos.png" class="inline-logo"> Utilisation de conteneurs pour garantir que l'environnement (versions de PyTorch, GPU drivers) est identique en développement et en production cloud.</li>
+        </ul>
+        <div class="footer">— 7 —</div>
+    </div>
+
+    <!-- PAGE 8 : CHAP 3 - Data -->
+    <div class="page">
+        <h3>● Préparation et Augmentation des données</h3>
+        <p>Un modèle d'IA est seulement aussi bon que ses données. Notre pipeline d'annotation a suivi deux étapes cruciales :</p>
+        
+        <ul>
+            <li><strong>Label Studio (Annotation) :</strong> <span class="kw">Le Problème :</span> Les images brutes ne disent pas à l'IA où se trouve la maladie. <span class="kw">La Solution :</span> Nous avons utilisé Label Studio pour dessiner manuellement les contours des taches de mildiou sur 70 images initiales.</li>
+            <li><strong>Roboflow (Augmentation) :</strong> <span class="kw">Le Problème :</span> 70 images ne suffisent pas pour une robustesse réelle (Overfitting). <span class="kw">La Solution :</span> Grâce à Roboflow, nous avons généré 950 variantes (rotations, zooms, flous), multipliant artificiellement l'expérience visuelle du modèle.</li>
+        </ul>
+
+        <div class="image-center">
+            <img src="../backend/outputs/aug_00084_output.jpg" style="max-height: 400px;">
+            <p class="fig-caption">Fig. 2 : Visualisation des données annotées et augmentées via Roboflow</p>
+        </div>
+        <div class="footer">— 8 —</div>
+    </div>
+
+    <!-- PAGE 9 : CHAP 3 - Deployment -->
+    <div class="page">
+        <h3>● Déploiement Cloud et Maintenance</h3>
+        <p>Le système final est hébergé sur <span class="kw">Hugging Face Spaces</span>. Cependant, en production, l'accumulation de fichiers uploads sature rapidement le disque dur.</p>
+        
+        <h3>● Rôle du Cronjob Automatisé</h3>
+        <p><span class="kw">Le Problème :</span> L'oubli humain du nettoyage manuel des serveurs. <span class="kw">La Solution :</span> Un script Cron planifié s'exécute chaque nuit à 3h du matin pour vider les dossiers de cache, garantissant que le service ne s'arrête jamais pour manque d'espace disque.</p>
+        
+        <div class="image-center">
+            <img src="../assets/screenshot_dashboard.png" style="max-height: 450px;">
+            <p class="fig-caption">Fig. 3 : Aperçu de l'architecture logicielle déployée</p>
+        </div>
+        <div class="footer">— 9 —</div>
+    </div>
+
+    <!-- PAGE 10 : CHAP 4 - Résultats -->
+    <div class="page">
+        <div class="chapter-badge">04</div>
+        <h2>Analyse des Résultats Expérimentaux</h2>
+        <h3>● Interface Dashboard Utilisateur</h3>
+        <p>L'interface conçue pour l'utilisateur <span class="kw">Hamza Kharmouch</span> permet un dépôt glisser-déposer. Le dashboard affiche instantanément :</p>
+        <ul>
+            <li>L'image annotée avec les détections (bounding boxes).</li>
+            <li>Le niveau de risque (Early vs Late Blight).</li>
+            <li>Des statistiques comparatives sur l'évolution de la maladie.</li>
+        </ul>
+
+        <div class="image-center">
+            <img src="../assets/screenshot_dashboard.png" style="max-height: 450px;">
+            <p class="fig-caption">Fig. 4 : Interface utilisateur du système Batata Blight AI (Dashboard)</p>
+        </div>
+        <div class="footer">— 10 —</div>
+    </div>
+
+    <!-- PAGE 11 : CHAP 4 - Inférence -->
+    <div class="page">
+        <h3>● Résultats d'Inférence YOLOv8</h3>
+        <p>Le modèle `best4.pt` a été testé sur des images d'environnements variés (serres, champs ouverts). Le système maintient une confiance élevée (> 80%) même dans des conditions d'ombre ou de chevauchement de feuilles.</p>
+
+        <div class="image-center">
+            <img src="../backend/outputs/aug_00018_output.jpg" style="max-height: 450px;">
+            <p class="fig-caption">Fig. 5 : Résultat réel de détection automatisée sur une feuille de pomme de terre</p>
+        </div>
+
+        <h3>● Analyse des Limitations</h3>
+        <p>Bien que performant, le système peut être sensible à la qualité de la caméra utilisée. Une résolution minimale de 720p est recommandée pour une précision optimale du diagnostic.</p>
+        <div class="footer">— 11 —</div>
+    </div>
+
+    <!-- PAGE 12 : CONCLUSION -->
+    <div class="page">
+        <h2>Conclusion Générale</h2>
+        <p>Ce Projet de Fin d'Études a permis de démontrer qu'il est possible d'apporter des solutions d'intelligence artificielle concrètes au secteur agricole marocain. Partant de la collecte brute jusqu'au déploiement sécurisé, le projet <span class="kw">Batata Blight AI</span> constitue une base robuste pour de futures extensions.</p>
+
+        <div style="margin-top: 6cm; text-align: center;">
+            <div style="font-weight: 700; color: #000; letter-spacing: 2px;">DOCUMENT VALIDÉ - SESSION 2026</div>
+            <hr style="width: 100px; border: 1px solid #000; margin: 10px auto;">
+            <p style="font-size: 0.8rem; color: #000;">EST Oujda — Département IDIA — Hamza</p>
+        </div>
+
+        <div class="footer">— 12 —</div>
+    </div>
+
+</body>
+</html>

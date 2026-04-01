@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport de PFE - Détection du Mildiou - EST Oujda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #1b5e20;
+            --accent: #d4e157;
+            --text-main: #333;
+            --text-muted: #666;
+            --bg-page: #ffffff;
+            --bg-body: #f4f7f4;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); margin: 0; padding: 0; }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 2cm;
+            margin: 1cm auto;
+            background: var(--bg-page);
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            position: relative;
+            page-break-after: always;
+            border: 1px solid #ddd;
+        }
+
+        @media print {
+            body { background: none; }
+            .page { margin: 0; box-shadow: none; width: 100%; border: none; }
+            .no-print { display: none; }
+        }
+
+        h1, h2, h3, h4 { font-family: 'Roboto+Slab', serif; color: var(--secondary); margin-top: 1.5rem; }
+        p { text-align: justify; margin-bottom: 1rem; }
+        
+        /* Page de garde */
+        .garde-center { text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+        .garde-titre { font-size: 2.2rem; border: 4px double var(--primary); padding: 2rem; margin: 2rem 0; font-weight: bold; line-height: 1.2; text-transform: uppercase; }
+        .head-university { font-size: 1.1rem; line-height: 1.5; font-weight: 700; margin-bottom: 1rem; }
+        .garde-img { max-width: 60%; border-radius: 5px; margin: 1rem auto; }
+        .footer-names { display: flex; justify-content: space-between; text-align: left; margin-top: 2rem; font-size: 1.1rem; }
+
+        /* Sommaire & Listes */
+        .toc-list, .list-abrev { list-style: none; padding: 0; }
+        .toc-list li { margin: 0.8rem 0; display: flex; justify-content: space-between; align-items: baseline; }
+        .toc-list li::after { content: ""; flex-grow: 1; border-bottom: 1px dotted #999; margin: 0 10px; }
+        .toc-list span:last-child { font-weight: 700; padding-left: 5px; }
+
+        .chapter-header { font-size: 2rem; border-bottom: 3px solid var(--primary); padding-bottom: 10px; margin-top: 3rem; text-transform: uppercase; }
+        .sub-header { font-size: 1.4rem; color: var(--primary); border-left: 5px solid var(--primary); padding-left: 15px; margin-top: 2rem; }
+
+        blockquote { background: #f1f8e9; border-left: 5px solid var(--secondary); padding: 1rem 1.5rem; font-style: italic; margin: 1.5rem 0; }
+        
+        .img-block { text-align: center; margin: 1.5rem 0; }
+        .img-block img { max-width: 85%; border: 1px solid #ccc; box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
+        .caption { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; font-style: italic; }
+
+        .tech-logos { display: flex; justify-content: space-around; align-items: center; margin: 2rem 0; flex-wrap: wrap; gap: 20px; }
+        .tech-logos img { height: 40px; filter: grayscale(100%); opacity: 0.7; transition: 0.3s; }
+        .tech-logos img:hover { filter: grayscale(0%); opacity: 1; }
+
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1 : PAGE DE GARDE -->
+    <div class="page">
+        <div class="garde-center">
+            <div class="head-university">
+                ROYAUME DU MAROC<br>
+                UNIVERSITÉ MOHAMMED PREMIER<br>
+                ÉCOLE SUPÉRIEURE DE TECHNOLOGIE - OUJDA (ESTO)<br>
+                DÉPARTEMENT INFORMATIQUE, DÉCISION ET INTELLIGENCE ARTIFICIELLE (IDIA)
+            </div>
+            
+            <h1 class="garde-titre">
+                PROJET DE FIN D'ÉTUDES :<br>
+                DÉTECTION ET SUIVI DU MILDIOU DANS LES CULTURES DE POMME DE TERRE PAR VISION PAR ORDINATEUR
+            </h1>
+
+            <img src="../assets/vecteezy_rustic-organic-potato-on-white-background_58272009.png" class="garde-img">
+
+            <div class="tech-logos">
+                <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" title="FastAPI">
+                <img src="https://www.docker.com/wp-content/uploads/2022/03/vertical-logo-monochromatic.png" title="Docker">
+                <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" title="Hugging Face">
+                <img src="https://www.netlify.com/v3/img/components/logomark-light.png" title="Netlify">
+            </div>
+
+            <div class="footer-names">
+                <div>
+                    <strong>Réalisé par :</strong><br>
+                    HAMZA
+                </div>
+                <div style="text-align: right;">
+                    <strong>Encadré par :</strong><br>
+                    M. MOUNIR GRARI
+                </div>
+            </div>
+
+            <div style="margin-top: 1rem; font-weight: bold; font-size: 1.1rem;">
+                SESSION : MAI 2026
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2 : REMERCIEMENTS & ABSTRACT -->
+    <div class="page">
+        <h2 class="chapter-header">Remerciements</h2>
+        <p>Je tiens tout d’abord à remercier mon encadrant, **Monsieur Mounir Grari**, pour sa disponibilité, sa rigueur scientifique et ses conseils avisés qui m'ont permis de mener à bien ce projet de fin d’études.</p>
+        <p>Mes remerciements s'adressent également aux professeurs du département **IDIA** de l'**EST Oujda** pour la qualité de l'enseignement dispensé durant mon cursus.</p>
+
+        <h2 class="chapter-header">Résumé + Abstract</h2>
+        <blockquote>
+            Ce rapport présente la conception et la réalisation d'un système intelligent de détection du mildiou par vision artificielle utilisant YOLOv8. L'outil permet une identification précoce des foyers d'infection via une application web déployée sur le cloud.
+        </blockquote>
+        <blockquote>
+            This report presents the design and implementation of an intelligent late blight detection system using YOLOv8 computer vision. The tool enables early identification of infection clusters through a cloud-deployed web application.
+        </blockquote>
+    </div>
+
+    <!-- PAGE 3 : LISTES & SOMMAIRE -->
+    <div class="page">
+        <h2 class="chapter-header">Liste des abréviations</h2>
+        <ul class="list-abrev">
+            <li><strong>PFE :</strong> Projet de Fin d'Études</li>
+            <li><strong>YOLO :</strong> You Only Look Once</li>
+            <li><strong>CNN :</strong> Convolutional Neural Network</li>
+            <li><strong>API :</strong> Application Programming Interface</li>
+            <li><strong>IA :</strong> Intelligence Artificielle</li>
+            <li><strong>ESTO :</strong> École Supérieure de Technologie d'Oujda</li>
+        </ul>
+
+        <h2 class="chapter-header">Sommaire</h2>
+        <ul class="toc-list">
+            <li><span>Introduction générale</span><span>7</span></li>
+            <li><span>Chapitre 1 — Généralités Vision & Agriculture</span><span>9</span></li>
+            <li><span>Chapitre 2 — Deep Learning pour la détection</span><span>11</span></li>
+            <li><span>Chapitre 3 — Implémentation & Maintenance (Cronjob)</span><span>14</span></li>
+            <li><span>Chapitre 4 — Résultats & Perspectives</span><span>17</span></li>
+            <li><span>Conclusion générale</span><span>20</span></li>
+        </ul>
+    </div>
+
+    <!-- PAGE 4 : INTRODUCTION GÉNÉRALE -->
+    <div class="page">
+        <h2 class="chapter-header">Introduction générale</h2>
+        <h3>● Contexte général du projet</h3>
+        <p>L’agriculture est au cœur de l’économie marocaine. Le mildiou reste un fléau biologique majeur pour la pomme de terre.</p>
+        
+        <h3>● Problématique</h3>
+        <p>Le diagnostic manuel est lent. L’automatisation par IA offre une réponse rapide et précise.</p>
+
+        <h3>● Objectifs du PFE</h3>
+        <p>Fournir une solution logicielle intégrant YOLOv8 pour une détection foliaire automatisée.</p>
+
+        <h3>● Méthodologie adoptée</h3>
+        <p>Collecte, Augmentation (70 -> 900+ images), Entraînement et Déploiement Cloud.</p>
+
+        <h3>● Organisation du rapport</h3>
+        <p>Le rapport détaille l'état de l'art, la théorie Deep Learning, l'implémentation logicielle et les résultats.</p>
+    </div>
+
+    <!-- PAGE 6 : CHAPITRE 2 -->
+    <div class="page">
+        <h2 class="chapter-header">Chapitre 2 — Deep Learning pour la détection le suivi et le comptage</h2>
+        <h3 class="sub-header">Techniques de détection d’objets (YOLOv8)</h3>
+        <p>YOLOv8 (You Only Look Once) permet d'identifier et de localiser précisément les zones infectées sur les feuilles de pomme de terre en temps réel.</p>
+
+        <div class="img-block">
+            <img src="../assets/nature-texture.svg" style="height: 100px; border: none; box-shadow: none;">
+            <p class="caption">Figure 1 : Schéma du réseau de neurones convolutif</p>
+        </div>
+    </div>
+
+    <!-- PAGE 7 : CHAPITRE 3 -->
+    <div class="page">
+        <h2 class="chapter-header">Chapitre 3 — Implémentation technique et Maintenance</h2>
+        <h3 class="sub-header">Outils de développement</h3>
+        <p>Développement sous **Python** avec **FastAPI**. Conteneurisation **Docker** pour un hébergement stable sur **Hugging Face**.</p>
+
+        <h3 class="sub-header">Maintenance Process (Cronjob)</h3>
+        <p>L'utilisation d'un **Cronjob** a été implémentée pour automatiser la maintenance du serveur :</p>
+        <ul>
+            <li><strong>Cleanup :</strong> Suppression périodique des fichiers temporaires dans `uploads/` et `outputs/` pour éviter la saturation du stockage.</li>
+            <li><strong>Wake-up :</strong> Ping régulier de l'API pour éviter la mise en veille des serveurs gratuits (Hugging Face / Render).</li>
+        </ul>
+
+        <div class="img-block">
+            <img src="../backend/outputs/aug_00018_output.jpg">
+            <p class="caption">Figure 2 : Résultat d'inférence réel sur le dataset augmenté</p>
+        </div>
+    </div>
+
+    <!-- PAGE 8 : CONCLUSION -->
+    <div class="page">
+        <h2 class="chapter-header">Conclusion Générale</h2>
+        <p>Ce projet à l'EST Oujda montre l'efficacité des architectures YOLO pour la santé végétale.</p>
+
+        <div style="margin-top: 5rem; text-align: center; color: var(--primary); font-weight: bold;">
+            FIN DU RAPPORT - SESSION 2026
+        </div>
+        
+        <div class="tech-logos" style="opacity: 0.5; margin-top: 2rem;">
+            <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png">
+            <img src="https://www.docker.com/wp-content/uploads/2022/03/vertical-logo-monochromatic.png">
+            <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg">
+            <img src="https://www.netlify.com/v3/img/components/logomark-light.png">
+        </div>
+    </div>
+
+</body>
+</html>

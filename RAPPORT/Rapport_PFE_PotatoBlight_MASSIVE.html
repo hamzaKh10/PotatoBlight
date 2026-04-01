@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport PFE - Potato Blight Detection - EST Oujda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #1b5e20;
+            --accent: #ffd54f;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border-color: #ecf0f1;
+            --bg-page: #ffffff;
+            --bg-body: #f7f9f7;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 0; }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 2.5cm;
+            margin: 1cm auto;
+            background: var(--bg-page);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+            page-break-after: always;
+        }
+
+        @media print {
+            body { background: none; }
+            .page { margin: 0; box-shadow: none; width: 100%; border: none; }
+            .no-print { display: none; }
+        }
+
+        h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; color: var(--secondary); margin-top: 1.5rem; text-transform: none; }
+        h1 { font-size: 2.2rem; font-weight: 700; text-align: center; }
+        h2 { font-size: 1.8rem; border-bottom: 2px solid var(--primary); padding-bottom: 8px; margin-top: 3rem; }
+        h3 { font-size: 1.4rem; color: var(--primary); clear: both; }
+
+        p { text-align: justify; line-height: 1.8; margin-bottom: 1.2rem; }
+        
+        .cover-page { display: flex; flex-direction: column; justify-content: space-between; height: 100%; text-align: center; }
+        .u-header { font-size: 1rem; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+        .p-title { font-size: 2.5rem; margin: 3rem 0; color: var(--primary); border: 8px double var(--primary); padding: 2.5rem; background: #fdfdfd; }
+        .p-subtitle { font-size: 1.3rem; color: var(--text-muted); font-weight: 300; }
+        .cover-img { max-width: 65%; border-radius: 8px; margin: 2rem auto; }
+        .c-footer { display: flex; justify-content: space-between; text-align: left; margin-top: 2rem; font-size: 1.1rem; border-top: 1px solid #eee; padding-top: 2rem; }
+
+        .toc-list, .abbrev-list { list-style: none; padding: 0; }
+        .toc-list li { display: flex; justify-content: space-between; align-items: baseline; margin: 1rem 0; }
+        .toc-list li::after { content: ""; flex-grow: 1; border-bottom: 1px dotted #ccc; margin: 0 10px; }
+        .toc-list span:last-child { font-weight: 700; color: var(--primary); }
+
+        .abbrev-list li { margin: 0.8rem 0; border-bottom: 1px solid #f9f9f9; padding-bottom: 5px; }
+        .abbrev-list strong { width: 110px; display: inline-block; color: var(--secondary); }
+
+        blockquote { background: #f0f7f0; border-left: 6px solid var(--primary); padding: 1.5rem 2rem; font-style: italic; margin: 2rem 0; color: var(--secondary); border-radius: 0 8px 8px 0; }
+        
+        .img-block { text-align: center; margin: 2.5rem 0; }
+        .img-block img { max-width: 85%; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .caption { font-size: 0.85rem; color: var(--text-muted); margin-top: 12px; }
+
+        /* Logos next to text */
+        .inline-logo { float: right; height: 50px; margin: 0 0 1rem 1.5rem; opacity: 0.9; }
+        .tech-box { padding: 1.5rem; background: #fdfdfd; border: 1px solid #eee; border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+        .tech-box strong { color: var(--primary); display: block; margin-bottom: 5px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: PAGE DE GARDE -->
+    <div class="page cover-page">
+        <div class="u-header">
+            ROYAUME DU MAROC<br>
+            UNIVERSITÉ MOHAMMED PREMIER<br>
+            ÉCOLE SUPÉRIEURE DE TECHNOLOGIE - OUJDA (ESTO)<br>
+            DÉPARTEMENT INFORMATIQUE, DÉCISION ET INTELLIGENCE ARTIFICIELLE (IDIA)
+        </div>
+
+        <div class="p-title">
+            PROJET DE FIN D'ÉTUDES :<br>
+            SYSTÈME DE SURVEILLANCE AUTOMATISÉ DU MILDIOU CHEZ LA POMME DE TERRE PAR VISION ARTIFICIELLE
+            <div class="p-subtitle">Implémentation d'une architecture Deep Learning YOLOv8 & Cloud Dashboard</div>
+        </div>
+
+        <div class="img-block">
+            <img src="../assets/vecteezy_close-up-of-a-russet-potato-with-rough-earthy-texture-and_58272011.png" class="cover-img">
+        </div>
+
+        <div class="c-footer">
+            <div>
+                <strong>Réalisé par :</strong><br>
+                HAMZA
+            </div>
+            <div style="text-align: right;">
+                <strong>Sous la direction de :</strong><br>
+                M. MOUNIR GRARI
+            </div>
+        </div>
+        <div style="margin-bottom: 1rem; font-weight: 700; font-size: 1.2rem; color: var(--secondary);">Session 2026</div>
+    </div>
+
+    <!-- PAGE 2: REMERCIEMENTS & RESUME -->
+    <div class="page">
+        <h2>Remerciements</h2>
+        <p>Je souhaite exprimer mes plus vifs remerciements à mon encadrant, **M. Mounir Grari**, pour son dévouement, son expertise technique et la confiance qu'il m'a témoignée tout au long de ce projet. Ses orientations stratégiques ont été déterminantes dans la réussite de l'implémentation du modèle YOLO.</p>
+        <p>Mes remerciements vont également à l'ensemble du corps professoral de l'**EST Oujda** pour la richesse de la formation en Intelligence Artificielle qu'ils nous ont dispensée.</p>
+
+        <h2>Résumé + Abstract</h2>
+        <blockquote>
+            Ce rapport détaille la mise en place d'un outil d'aide à la décision (OAD) pour les agriculteurs. En exploitant la puissance de la vision par ordinateur et du modèle YOLOv8, nous avons développé une application capable de diagnostiquer les symptômes du mildiou en temps réel. Ce projet intègre toutes les étapes de la data-science : collecte, augmentation, entraînement et déploiement cloud sur une infrastructure Dockerisée.
+        </blockquote>
+        <blockquote>
+            This report explores the development of a Decision Support Tool for potato farmers. Leveraging computer vision and YOLOv8, we created an application for real-time late blight diagnosis. This PFE covers the entire data-science lifecycle, including data augmentation, model training, and professional cloud deployment via Docker and Hugging Face.
+        </blockquote>
+    </div>
+
+     <!-- PAGE 3: SOMMAIRE & LISTES -->
+    <div class="page">
+        <h2>Liste des abréviations</h2>
+        <ul class="abbrev-list">
+            <li><strong>YOLO :</strong> You Only Look Once</li>
+            <li><strong>CNN :</strong> Convolutional Neural Network</li>
+            <li><strong>OAD :</strong> Outil d'Aide à la Décision</li>
+            <li><strong>API :</strong> Application Programming Interface</li>
+            <li><strong>FPS :</strong> Images Per Second</li>
+            <li><strong>mAP :</strong> Mean Average Precision</li>
+            <li><strong>ESTO :</strong> École Supérieure de Technologie d'Oujda</li>
+        </ul>
+
+        <h2>Sommaire</h2>
+        <ul class="toc-list">
+            <li><span>Introduction générale</span><span>7</span></li>
+            <li><span>Chapitre 1 — Généralités Vision & Agriculture de Précision</span><span>9</span></li>
+            <li><span>Chapitre 2 — Deep Learning, Détection et Suivi Multi-Objets</span><span>12</span></li>
+            <li><span>Chapitre 3 — Implémentation technique et Maintenance Cloud</span><span>15</span></li>
+            <li><span>Chapitre 4 — Analyse des Résultats et Perspectives</span><span>18</span></li>
+            <li><span>Conclusion générale</span><span>21</span></li>
+        </ul>
+    </div>
+
+    <!-- PAGE 4: INTRODUCTION -->
+    <div class="page">
+        <h2>Introduction générale</h2>
+        <h3>● Contexte général du projet</h3>
+        <p>Le secteur agricole marocain investit massivement dans les technologies de rupture. La protection phytosanitaire est une priorité absolue, car des maladies comme le **mildiou** engendrent des pertes massives.</p>
+        
+        <h3>● Problématique</h3>
+        <p>La surveillance visuelle manuelle est imprécise. Comment une caméra de surveillance ou un smartphone peut-il devenir un outil expert de diagnostic instantané ?</p>
+
+        <h3>● Objectifs du PFE</h3>
+        <p>L'objectif est d'aider l'agriculteur à décider du traitement adéquat via une analyse automatisée en temps réel.</p>
+
+        <h3>● Méthodologie adoptée</h3>
+        <p>Approche "Direct-to-Cloud" : un modèle supervisé YOLOv8 robuste, optimisé par data-augmentation (70 -> 900+ images), exposé via FastAPI et sécurisé par conteneurisation Docker.</p>
+    </div>
+
+    <!-- PAGE 5: CHAPITRE 1 -->
+    <div class="page">
+        <h2>Chapitre 1 — Généralités Vision & Agriculture</h2>
+        <h3>Introduction à la vision par ordinateur</h3>
+        <p>La vision par ordinateur permet aux systèmes informatiques d'extraire des informations de haut niveau à partir d'images ou de vidéos.</p>
+
+        <h3>Introduction à l’agriculture de précision</h3>
+        <p>L’agriculture de précision permet de traiter "chaque plant individuellement", réduisant ainsi les coûts et l'impact écologique.</p>
+
+        <div class="img-block">
+            <img src="../assets/nature-texture.svg" style="height: 150px; border: none; box-shadow: none;">
+            <p class="caption">Figure 1 : Interconnexion entre l'IA et les écosystèmes agricoles</p>
+        </div>
+    </div>
+
+    <!-- PAGE 6: CHAPITRE 2 -->
+    <div class="page">
+        <h2>Chapitre 2 — Deep Learning, Détection et Suivi</h2>
+        <h3>Fondements du Deep Learning</h3>
+        <p>Les réseaux de neurones convolutifs (CNN) apprennent de manière hiérarchique : des bords simples aux structures complexes de maladies foliaires.</p>
+
+        <h3>Techniques de détection d’objets (YOLOv8)</h3>
+        <img src="https://ultralytics.com/static/images/logo-ultralytics.png" class="inline-logo" style="height: 35px;">
+        <p>Contrairement aux modèles traditionnels, YOLOv8 est un modèle "Single-Shot" ultra-rapide, capable de traiter des flux vidéos en temps réel à plus de 30 FPS.</p>
+
+        <h3>Méthodes de suivi et comptage</h3>
+        <p>Grâce à des algorithmes de suivi (Tracking), chaque plant détecté se voit attribuer un identifiant unique, évitant le double comptage lors de l'analyse vidéo.</p>
+    </div>
+
+    <!-- PAGE 7: CHAPITRE 3 -->
+    <div class="page">
+        <h2>Chapitre 3 — Implémentation technique & Maintenance</h2>
+        <h3>Outils de Développement</h3>
+        
+        <div class="tech-box">
+            <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" class="inline-logo">
+            <strong>FastAPI (Python)</strong>
+            Backend asynchrone utilisé pour son efficacité exceptionnelle et sa capacité à gérer simultanément de multiples requêtes d'inférence AI.
+        </div>
+
+        <div class="tech-box">
+            <img src="https://www.docker.com/wp-content/uploads/2021/11/docker-container-logos.png" class="inline-logo">
+            <strong>Docker Containerization</strong>
+            Utilisé pour isoler l'environnement (CUDA, PyTorch, YOLO) et garantir que le serveur fonctionne de la même manière en local et sur le Cloud.
+        </div>
+
+        <div class="tech-box">
+            <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" class="inline-logo">
+            <strong>Hugging Face Spaces</strong>
+            Infrastructure principale d'hébergement du moteur d'IA, offrant la puissance CPU/RAM nécessaire pour l'exécution du modèle `best4.pt`.
+        </div>
+
+        <div class="tech-box">
+            <img src="https://www.netlify.com/v3/img/components/logomark-light.png" class="inline-logo">
+            <strong>Netlify Dashboard</strong>
+            Plateforme d'hébergement du Frontend (HTML/JS), communiquant avec l'API Hugging Face de manière fluide pour l'utilisateur final.
+        </div>
+
+        <h3>Maintenance et Automatisation (Cronjob)</h3>
+        <p>Un **Cronjob** de nettoyage a été mis en œuvre. Ce script s'assure que les dossiers temporaires `uploads/` et `outputs/` sont vidés toutes les 24 heures, évitant ainsi le "Disk Full" sur le serveur de production.</p>
+    </div>
+
+    <!-- PAGE 8: CHAPITRE 4 -->
+    <div class="page">
+        <h2>Chapitre 4 — Résultats et Analyses</h2>
+        <h3>Analyse des résultats expérimentaux</h3>
+        <p>Le modèle final a été validé sur un ensemble de test indépendant. Le système calcule dynamiquement le niveau de risque : **Vert**, **Orange** ou **Rouge**.</p>
+
+        <div class="img-block">
+            <img src="../backend/outputs/aug_00018_output.jpg">
+            <p class="caption">Figure 2 : Sortie de l'algorithme avec bounding boxes et confiance > 85%</p>
+        </div>
+
+        <h3>Limitations et Perspectives</h3>
+        <p>Une perspective majeure est l'intégration future à des caméras embarquées sur des drones pour automatiser le trajet dans le champ.</p>
+    </div>
+
+    <!-- PAGE 9 : CONCLUSION -->
+    <div class="page">
+        <h2>Conclusion Générale</h2>
+        <p>Ce projet de fin d'études démontre qu'il est possible de créer un outil de diagnostic agricole avec des ressources optimisées. L'union entre l'agronomie et l'IA ouvre des perspectives immenses pour l'EST Oujda.</p>
+
+        <div style="margin-top: 6rem; text-align: center;">
+            <div style="font-weight: 700; color: var(--primary); letter-spacing: 2px;">PROJET VALIDÉ - SESSION 2026</div>
+            <hr style="width: 100px; border: 1px solid var(--accent); margin: 10px auto;">
+            <p style="font-size: 0.8rem; color: #aaa;">Document généré informatiquement par BATATA BLIGHT AI</p>
+        </div>
+    </div>
+
+</body>
+</html>
