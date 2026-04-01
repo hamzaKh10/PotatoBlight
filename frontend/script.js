@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
       opt.addEventListener("click", (e) => {
         const target = e.currentTarget;
         currentLang = target.getAttribute("data-value");
-        if(activeLangText) activeLangText.textContent = currentLang.toUpperCase();
+        if(activeLangText) activeLangText.textContent = target.textContent;
         
         // Highlight logic
         document.querySelectorAll(".lang-option").forEach(o => o.classList.remove("selected"));
